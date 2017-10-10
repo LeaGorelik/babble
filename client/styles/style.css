@@ -9,7 +9,6 @@
 .Form-message{position:absolute; background:white; bottom:0; height:100px; left:230px; width:calc(100% - 230px); overflow:hidden; }
 .Form-message-submit{cursor:pointer; position:absolute; width:50px; height:50px; background:url(../images/sprite.png) no-repeat; background-position:-29px -7px; background-size:88px; right:108px; top:20px; border-radius:100%; box-shadow:0 0 1px 3px; }
 .Form-message-textarea{position:absolute; resize:none; width:calc(100% - 220px); padding:15px; font-size:15px; height:calc(100% - 30px); }
-
 .Form-message-submit:hover{filter:grayscale(50%); }
 .Form-message-submit:active{filter:grayscale(100%); }
 .Register{position:absolute; width:100%; left:0; top:0; height:100%; background:rgba(0,0,0,0.5); z-index:10; }
