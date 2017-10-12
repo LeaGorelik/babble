@@ -24,22 +24,19 @@
     </dl>
     <ol class="Main-chatList"></ol>
 </main>
-<form class="Form-message">
-    <label for="textareaMsg">.</label><textarea id="textareaMsg" class="Form-message-textarea"></textarea>
-    <!-- !!! wave.webaim will state error if not given label "for" and elements "id" !!!! -->
-    <button aria-label="Send" type="submit" class="Form-message-submit"></button>
-</form>
+<div class="Form-message">
+    <textarea name="textareaMsg" class="Form-message-textarea"></textarea>
+    <button aria-label="Send" class="Form-message-submit"></button>
+</div>
 <div class="Register">
-    <form class="Register-form">
+    <div class="Register-form">
         <h2 class="Register-form-header">Who are you?</h2>
-        <label for="registerName">Full Name:</label><input id="registerName" type="text" minlength="3" class="Register-form-fullname">
-        <label for="registerEmail">Email:</label><input id="registerEmail" type="email" class="Register-form-email">
-        <!-- !!! wave.webaim will state error if not given label "for" and elements "id" !!!! -->
+        <label>Full Name:</label><input name="registerName" type="text" minlength="3" class="Register-form-fullname">
+        <label>Email:</label><input name="registerEmail" type="email" class="Register-form-email">
         <button class="Register-form-save" type="submit">Save</button>
         <button class="Register-form-anon" type="button">Stay Anonymous</button>
-    </form>
+    </div>
 </div>
-
 
 <div id="mocha"></div>
 

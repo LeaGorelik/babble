@@ -9,6 +9,17 @@
 .Form-message{position:absolute; background:white; bottom:0; height:100px; left:230px; width:calc(100% - 230px); overflow:hidden; }
 .Form-message-submit{cursor:pointer; position:absolute; width:50px; height:50px; background:url(../images/sprite.png) no-repeat; background-position:-29px -7px; background-size:88px; right:108px; top:20px; border-radius:100%; box-shadow:0 0 1px 3px; }
 .Form-message-textarea{position:absolute; resize:none; width:calc(100% - 220px); padding:15px; font-size:15px; height:calc(100% - 30px); }
+*{margin:0; padding:0; border:0; outline:0; font-size:5vw; font-family:"Arimo", sans-serif; ; }
+.Header{width:100%; height:100px; background:#353744; position:relative; }
+.Header-h1{position:absolute; left:76px; color:white; top:25px; font-weight:normal; font-size:33px; line-height:25px; }
+.Header-h1-span{position:relative; width:100%; font-size:17px; float:left; margin-left:6px; }
+.Header-img{position:relative; height:75%; margin-top:16px; margin-left:10px; }
+.Nav{height:calc(100% - 100px); background:#61D290; width:230px; position:absolute; display:block; top:100px; }
+.Main{position:absolute; display:block; width:calc(100% - 230px); height:calc(100% - 200px); left:230px; background:#F6F6F6; top:100px; border-bottom:1px solid #e6e6e6; }
+.Main-chatList{position:absolute; left:0; width:calc(100% - 30px); top:50px; height:calc(100% - 130px); overflow-y:auto; padding-bottom:60px; padding-right:20px; }
+.Form-message{position:absolute; background:white; bottom:0; height:100px; left:230px; width:calc(100% - 230px); overflow:hidden; }
+.Form-message-submit{cursor:pointer; position:absolute; width:50px; height:50px; background:url(../images/sprite.png) no-repeat; background-position:-29px -7px; background-size:88px; right:108px; top:20px; border-radius:100%; box-shadow:0 0 1px 3px; }
+.Form-message-textarea{position:absolute; resize:none; width:calc(100% - 220px); padding:15px; font-size:15px; height:calc(100% - 30px); }
 .Form-message-submit:hover{filter:grayscale(50%); }
 .Form-message-submit:active{filter:grayscale(100%); }
 .Register{position:absolute; width:100%; left:0; top:0; height:100%; background:rgba(0,0,0,0.5); z-index:10; }
@@ -23,7 +34,7 @@
 .Register-form-header{font-weight:normal; font-size:22px; margin-left:25px; margin-top:28px; }
 .Main-chatList-li{list-style-type:none; position:relative; height:auto !important; display:grid; width:100%; }
 .Main-chatList-li-time{font-size:11px; float:left; color:#C0C0C0; margin-left:7px; margin-top:3px; }
-.Main-chatList-li-remove{  border-radius: 4px;position:absolute; top:3px; right:3px; background:url(../images/sprite.png) no-repeat; background-position:5px 5px; background-size:88px; width:20px; height:20px; }
+.Main-chatList-li-remove{ display:none; border-radius: 4px;position:absolute; top:3px; right:3px; background:url(../images/sprite.png) no-repeat; background-position:5px 5px; background-size:88px; width:20px; height:20px; }
 .Main-chatList-li-cite{position:relative; font-size:14px; font-weight:bold; float:left; }
 .Main-chatList-li-msg{background:#ffffff; position:relative; margin-left:67px; font-size:15px; border-radius:7px; box-shadow:0 0 1px 1px #ccc; z-index:0; width:auto; display:inline-table; min-width:225px; max-width:calc(100% - 300px); word-break:break-all; padding:30px 10px; padding-bottom:10px; line-height:20px; vertical-align:text-top; margin-top:10px; margin-bottom:5px; }
 .Main-chatList-li-gravatar{position:absolute; top:12px; left:22px; border-radius:100%; width:35px; height:35px; box-shadow:0 0 1px 1px #ccc inset; }
@@ -34,6 +45,7 @@
 .Main-chatList::-webkit-scrollbar-thumb{border-radius:10px; -webkit-box-shadow:inset 0 0 2px rgba(0,0,0,.3); background-color:#EBEDEC; }
 .Main-chatList-li.isMe:hover .Main-chatList-li-msg,
 .Main-chatList-li.isMe:focus .Main-chatList-li-msg{background:#EBEDEC !important; }
+.Main-chatList-li.removed{display:none; }
 .Main-chatList-li-remove:hover{filter:contrast(25%); cursor:pointer; }
 .Main-stats{position:absolute; right:40px; height:18px; width:200px; top:25px; text-align:right; }
 .Main-stats-clients{height:100%; font-size:15px; font-weight:bold; line-height:20px; float:right; padding-left:5px; padding-right:10px; }
@@ -41,8 +53,9 @@
 .Main-stats-messages{height:100%; font-size:15px; font-weight:bold; line-height:20px; float:right; padding-left:20px; }
 .Main-stats-messages::after{content:''; position:relative; background:url(../images/sprite.png) no-repeat; background-position:0px -54px; background-size:88px; width:19px; height:20px; float:left; margin-right:4px; }
 .Main-chatList-li:focus .Main-chatList-li-msg, .Main-chatList-li-remove:focus{  box-shadow: 0 0 1px 0px silver, 0 0 4px 2px silver inset;  }
-[hidden] { display: none; }
- 
+.Main-stats-terms{display: none;}
+label[for="textareaMsg"]{display:none; }
+
 @media (max-width: 638px) {
     *{margin:0; padding:0; border:0; outline:0; font-size:5vw; font-family:"Arimo", sans-serif; ; }
     .Header{width:100%;height: 11vh;background:#353744;position:relative;}
@@ -80,6 +93,7 @@
     .Main-chatList::-webkit-scrollbar-track{-webkit-box-shadow:0 0 1px rgba(0,0,0,0.3); border-radius:10px; background-color:white; }
     .Main-chatList::-webkit-scrollbar{width:7px !important; background-color:#F5F5F5; }
     .Main-chatList::-webkit-scrollbar-thumb{border-radius:10px; -webkit-box-shadow:inset 0 0 2px rgba(0,0,0,.3); background-color:#EBEDEC; }
+    .Main-chatList-li.removed{display:none; }
     .Main-chatList-li-remove:hover{filter:contrast(25%); cursor:pointer; }
     .Main-stats{position:absolute;right: 6.5vw;height: 2.5vh;width: 20vw;top: 2.5vh;text-align:right;}
     .Main-stats-clients{height:100%;font-size: 2.25vw;font-weight:bold;line-height: 2.25vh;float:right;padding-left: 1vw;padding-right: 1vw;}

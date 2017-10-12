@@ -2,7 +2,16 @@
 
 let assert = window.chai.assert;
 let sinon = window.sinon;
-let Babble = window.Babble;
+//let Babble = window.Babble;  //ALREADY DECLARED
+
+
+
+describe('Responsive Design', function() {
+    it('should be responsive design', function() {
+        let width = document.querySelector('.Main').offsetWidth + document.querySelector('.Nav').offsetWidth;
+        assert.equal(document.body.offsetWidth, width);
+    });
+});
 
 describe('LocalStorage', function() {
   it('should have one key named babble in json format', function() {
@@ -37,7 +46,7 @@ describe('User state', function() {
     assert.isEmpty(data.userInfo.email);
   });
   it('should have details after register', function() {
-      _Babble.register({
+      Babble.register({
       name: 'Alex Krul',
       email: 'alex@krul.co.il'
     });
@@ -46,7 +55,7 @@ describe('User state', function() {
     assert.equal(data.userInfo.email, 'alex@krul.co.il');
   });
   it('should allow anonymous register', function() {
-      _Babble.register({
+      Babble.register({
       name: '',
       email: ''
     });
@@ -74,7 +83,7 @@ describe('Client-Server', function() {
     it('should issue GET /messages ', function() {
       server.respondWith('GET', `${apiUrl}/messages?counter=0`, JSON.stringify([]));
       let callback = sinon.spy();
-        _Babble.getMessages(0, callback);
+        Babble.getMessages(0, callback);
       server.respond();
       sinon.assert.calledWith(callback, []);
     });
@@ -87,7 +96,7 @@ describe('Client-Server', function() {
         message: 'Hi from mocha',
         timestamp: Date.now()
       };
-        _Babble.postMessage(message, callback);
+        Babble.postMessage(message, callback);
       server.respond();
       assert.equal(server.requests[0].requestBody, JSON.stringify(message));
       sinon.assert.calledWith(callback, {id: '42'});
@@ -95,14 +104,14 @@ describe('Client-Server', function() {
     it('should issue DELETE /messages/:id ', function() {
       server.respondWith('DELETE', `${apiUrl}/messages/42`, JSON.stringify(true));
       let callback = sinon.spy();
-        _Babble.deleteMessage('42', callback);
+        Babble.deleteMessage('42', callback);
       server.respond();
       sinon.assert.calledWith(callback, true);
     });
     it('should issue GET /stats ', function() {
       server.respondWith('GET', `${apiUrl}/stats`, JSON.stringify({users: 5, messages: 20}));
       let callback = sinon.spy();
-        _Babble.getStats(callback);
+        Babble.getStats(callback);
       server.respond();
       sinon.assert.calledWith(callback, {users: 5, messages: 20});
     });

@@ -10,26 +10,26 @@ Storage.prototype.getObject = function(key) {
 };
 
 document.querySelector('.Form-message-submit').addEventListener('click', function(e){
-    _Babble.postMessage(document.querySelector('.Form-message-textarea').value);
+    Babble.postMessage(document.querySelector('.Form-message-textarea').value);
 });
 
 document.querySelector('.Register-form-anon').addEventListener('click', function(e){
-    _Babble.register({ name: 'Anonymous', email: 'anonymous@babble.com'});
+    Babble.register({ name: 'Anonymous', email: 'anonymous@babble.com'});
 });
 
 document.querySelector('.Form-message-textarea').addEventListener('keypress', function(e){
   if(e.keyCode == 13){
-      _Babble.postMessage(document.querySelector('.Form-message-textarea').value);
+      Babble.postMessage(document.querySelector('.Form-message-textarea').value);
       document.querySelector('.Form-message-textarea').value = '';
   }
 });
 
 document.querySelector('.Register-form-save').addEventListener('click', function(e){
     var fullname = document.querySelector('.Register-form-fullname'), email = document.querySelector('.Register-form-email');
-    if(fullname.validity.valid && email.validity.valid) _Babble.register({ name: fullname.value, email: email.value });
+    if(fullname.validity.valid && email.validity.valid) Babble.register({ name: fullname.value, email: email.value });
 });
 
-var _Babble = {
+var Babble = {
     counter: 0,
     remMsgShowHide: function(action, elem){
         var gotRemButton = elem.querySelector('.Main-chatList-li-remove');
@@ -37,15 +37,15 @@ var _Babble = {
     },
     register: function(_userInfo){
         localStorage.setObject('babble', {userInfo: _userInfo });
-        _Babble.request('/register', 'POST', JSON.stringify(_userInfo), function(response) {
+        Babble.request('/register', 'POST', JSON.stringify(_userInfo), function(response) {
             document.querySelector('.Register').style.display = 'none';
         });
     },
     getMessages: function(counter, callback){
         var chatListAppend = '', chatList = document.querySelector('.Main-chatList'), curDate, isMe, isRemove, remLi, tabCounter = 1;
-        _Babble.request('/messages?counter = ' + _Babble.counter, 'GET', null, function(response) {
-            if(typeof(response.count) != 'undefined') _Babble.counter = response.count;
-            else if(!isNaN(counter)) _Babble.counter = counter;
+        Babble.request('/messages?counter = ' + Babble.counter, 'GET', null, function(response) {
+            if(typeof(response.count) != 'undefined') Babble.counter = response.count;
+            else if(!isNaN(counter)) Babble.counter = counter;
             if(typeof(response.append) != 'undefined' && response.append.length > 0) {
                 for(let a in response.append){
                     isMe = (localStorage.getObject('babble').userInfo.name == response.append[a].name &&
@@ -55,8 +55,8 @@ var _Babble = {
                     isRemove = typeof(response.append[a].remove) != 'undefined';
                     if(!isRemove){
                         curDate = new Date(response.append[a].timestamp).toLocaleTimeString().split(' ')[0];
-                        chatListAppend += '<li onfocus="_Babble.remMsgShowHide(\'show\',this)" onmouseover="_Babble.remMsgShowHide(\'show\',this)" ' +
-                                ' onblur="_Babble.remMsgShowHide(\'hide\',this)" onmouseout="_Babble.remMsgShowHide(\'hide\',this)" ' +
+                        chatListAppend += '<li onfocus="Babble.remMsgShowHide(\'show\',this)" onmouseover="Babble.remMsgShowHide(\'show\',this)" ' +
+                                ' onblur="Babble.remMsgShowHide(\'hide\',this)" onmouseout="Babble.remMsgShowHide(\'hide\',this)" ' +
                                 'data-msg-id="' + response.append[a].id.replace(/ /g, '+').trim() + '" class="Main-chatList-li ' + (isMe ? 'isMe' : '') + '">' +
                                     '<img alt="" class="Main-chatList-li-gravatar" src="'+
                                      (response.append[a].gravatar == null ? 'images/anon.png' : ('http://' + response.append[a].gravatar)) + '">' +
@@ -65,17 +65,14 @@ var _Babble = {
                                         '<time class="Main-chatList-li-time" datetime="' + curDate+ '">' + curDate + '</time>' +
                                     '</span>' +
                                     '<p class="Main-chatList-li-msg">' + unescape(response.append[a].message);
-                        if(isMe) chatListAppend += '<button hidden onclick="_Babble.deleteMessage(\'' + response.append[a].id.replace(/ /g, '+').trim() + '\');" class="Main-chatList-li-remove" aria-label="Delete"></button>';
+                        if(isMe) chatListAppend += '<button onclick="Babble.deleteMessage(\'' + response.append[a].id.replace(/ /g, '+').trim() + '\');" class="Main-chatList-li-remove" aria-label="Delete"></button>';
                         chatListAppend +='</p></li>';
                     }
                     else{
                         chatList.innerHTML += chatListAppend;
                         chatListAppend = '';
                         remLi = document.querySelector('li[data-msg-id="' + response.append[a].remove.replace(/ /g, '+').trim() + '"]');
-                        if(remLi != null) {
-							remLi.classList.add('removed');
-							remLi.setAttribute('hidden', '');
-						}
+                        if(remLi != null) remLi.classList.add('removed');
                     }
                 }
                 chatList.innerHTML += chatListAppend;
@@ -93,7 +90,7 @@ var _Babble = {
             }
             chatList.scrollTop = chatList.scrollHeight;
             if(typeof(callback) == 'function') callback(response);
-            _Babble.getMessages();
+            Babble.getMessages();
         });
     },
     postMessage: function(msg, callback){
@@ -109,7 +106,7 @@ var _Babble = {
 
         localStorage.setObject('babble', {currentMessage: textAreaElem.value});
 
-        _Babble.request('/messages', 'POST', JSON.stringify(data), function(response) {
+        Babble.request('/messages', 'POST', JSON.stringify(data), function(response) {
             if(msg == textAreaElem.value) textAreaElem.value = '';
             if(typeof(callback) == 'function') callback(response);
         });
@@ -117,17 +114,17 @@ var _Babble = {
         return false;
     },
     deleteMessage:function(_id, callback){
-        _Babble.request('/messages/' + _id, 'DELETE', JSON.stringify({id: _id}), function(response) {
+        Babble.request('/messages/' + _id, 'DELETE', JSON.stringify({id: _id}), function(response) {
             if(typeof(callback) == 'function') callback(true);
         });
     },
     getStats: function(callback){
-        _Babble.request('/stats', 'GET', null, function(response) {
+        Babble.request('/stats', 'GET', null, function(response) {
             if(typeof(callback) == 'function') callback(response);
             else{
                 document.querySelector('.Main-stats-clients').innerHTML = response.users;
                 document.querySelector('.Main-stats-messages').innerHTML = response.messages;
-                setTimeout(_Babble.getStats, 3000);
+                setTimeout(Babble.getStats, 3000);
             }
         });
     },
@@ -152,5 +149,5 @@ var _Babble = {
 
 localStorage.setObject('babble', {currentMessage: '', userInfo:{ name: '', email: ''} });
 
-_Babble.getStats();
-_Babble.getMessages();
+Babble.getStats();
+Babble.getMessages();
