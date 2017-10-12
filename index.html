@@ -22,14 +22,14 @@
     <ol class="Main-chatList"></ol>
 </main>
 <div class="Form-message">
-    <textarea name="textareaMsg" class="Form-message-textarea"></textarea>
+    <label for="textareaMsg" hidden></label><textarea name="textareaMsg" id="textareaMsg" class="Form-message-textarea"></textarea>
     <button aria-label="Send" class="Form-message-submit"></button>
 </div>
 <div class="Register">
     <div class="Register-form">
         <h2 class="Register-form-header">Who are you?</h2>
-        <label>Full Name:</label><input name="registerName" type="text" minlength="3" class="Register-form-fullname">
-        <label>Email:</label><input name="registerEmail" type="email" class="Register-form-email">
+        <label for="registerName">Full Name:</label><input name="registerName" id="registerName" type="text" minlength="3" class="Register-form-fullname">
+        <label for="registerEmail">Email:</label><input name="registerEmail" id="registerEmail" type="email" class="Register-form-email">
         <button class="Register-form-save" type="submit">Save</button>
         <button class="Register-form-anon" type="button">Stay Anonymous</button>
     </div>
