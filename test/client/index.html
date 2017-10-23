@@ -55,13 +55,21 @@
     div#mocha{background:rgba(0,0,0,0.75); position:absolute; left:0; top:100px; padding:0; margin:0; color:white; width:100%; overflow-y:scroll; height:calc(100% - 100px); }
     ul#mocha-stats{position:absolute; left:0; top:0; font-size:20px; }
     #mocha-stats li{font-size:20px; }
+    #mocha-stats li{font-size:20px; }
     #mocha-stats em{font-size:20px; color:white; }
     #mocha-stats a{font-size:20px; color:white; }
     ul#mocha-report{padding-top:20px; }
     #mocha h1 a{font-size:18px; }
     #mocha h1{font-size:30px; }
+    li.suite {
+        padding-top: 60px;
+    }
+    #mocha h2{font-size: 20px; }
+    #mocha h2>span{font-size:18px; }
+    #mocha h2>a{font-size:18px; }
     #mocha .test pre.error{max-width:calc(100% - 81px); background:white; }
-    #mocha-stats .progress{background:white; border-radius:100%; height:40px; }
+    #mocha-stats .progress{background:white; border-radius:100%; height:40px;
+        width:40px; }
     #mocha .suite .suite h1{font-size:25px; }
     #mocha .test.fail pre{width:calc(100% - 81px); background:white; overflow:scroll; font-size:12px; position:relative; }
     #mocha .test.fail pre code{font-size:12px; }

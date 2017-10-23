@@ -14,10 +14,10 @@ http.createServer(function (req, res) {
     }
     else{
         pathname = pathname.replace('/test/client/', '/');
-        if(pathname == '/') pathname =  '../test/client/index.html';
-        else if(pathname.indexOf('test.js') > -1) pathname =  '../test/client/test.js';
-        else if(pathname.indexOf('node_modules') > -1) pathname = '../test/client' + pathname;
-        else pathname = '../client' + pathname;
+        if(pathname == '/') pathname =  'test/client/index.html';
+        else if(pathname.indexOf('test.js') > -1) pathname =  'test/client/test.js';
+        else if(pathname.indexOf('node_modules') > -1) pathname = 'test/client' + pathname;
+        else pathname = 'client' + pathname;
 
         fs.readFile(pathname, function(err, data) {
             if(err != null) res.statusCode = 404;
@@ -37,14 +37,16 @@ http.createServer(function (req, res) {
 
     switch(req.method){
         case 'GET':
-            var mime, page = '../client/' + (parsedPath.length == 0 ? 'index.html' : parsedPath.join('/'));
+            var mime, page = 'client/' + (parsedPath.length == 0 ? 'index.html' : parsedPath.join('/'));
             if(page.indexOf('.html') > 0) mime = "text/html" ;
             if(page.indexOf('.png') > 0) mime = "image/png" ;
             if(page.indexOf('.css') > 0) mime = "text/css" ;
+            if(page.indexOf('.ico') > 0) mime = "image/png" ;
             if(page.indexOf('.js') > 0) mime = "application/javascript" ;
+
             res.writeHeader(200, {"Content-Type": mime});
             fs.readFile(page, function(err, data) {
-                if(err != null) fs.readFile('../client/404.html', function(err, data) {
+                if(err != null) fs.readFile('client/404.html', function(err, data) {
                     res.statusCode = 404;
                     res.write(data);
                     res.end();
@@ -79,7 +81,7 @@ http.createServer(function (req, res) {
     switch(req.method){
         case 'GET':
             switch(parsedPath[0]){
-                default: fs.readFile('../client/404.html', function(err, data) { res.statusCode = 404; res.end(data); }); break;  // page script css request
+                default: fs.readFile('client/404.html', function(err, data) { res.statusCode = 404; res.end(data); }); break;  // page script css request
                 case 'messages': // poll counter request
                     if(parsedPath.length < 3) { res.statusCode = 400; res.end(); }
                     else{
