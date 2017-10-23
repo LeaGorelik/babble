@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "assert": "^1.4.1",
-    "fs": "*",
+    "fs": "0.0.1-security",
     "gravatar": "*",
     "http": "*",
     "mocha": "^4.0.1",
